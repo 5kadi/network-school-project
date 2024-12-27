@@ -1,0 +1,6 @@
+EPOCHS = 50
+LEARNING_RATE = 0.025
+BATCH_SIZE = 100
+N_CLASSES = 10
+CLASS_NAMES = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+EPSILON = 1e-10
