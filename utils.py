@@ -9,5 +9,4 @@ def imshow(samples: np.ndarray, classes: np.ndarray, amount: int = 6) -> None:
         img = samples[i].reshape([28, 28])
         plt.imshow(img, cmap="gray")
         plt.title(CLASS_NAMES[int(classes[i])])
-    plt.show()
-
+    plt.show()                                                                                                            

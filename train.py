@@ -1,41 +1,29 @@
-from loss import CrossEntropyLoss
-from network import Network
-from utils import imshow 
-from dataloaders import *
-from config import EPOCHS
+from net.loss import CrossEntropyLoss
+from model import model
+from data.mnist import get_mnist
+from config import EPOCHS, LEARNING_RATE, EPSILON, WEIGHTS_PATH
+import numpy as np
 
-#data = np.random.rand(4, 4)
-#data = data.reshape([4*4])
-#actual = np.array([1, 0, 0, 0])
+model.load_weights(WEIGHTS_PATH)
+loss = CrossEntropyLoss(EPSILON)
 
-model = Network(784, 100, 10)
-loss = CrossEntropyLoss()
+images, classes = get_mnist()
 
-for e in range(100):
+for e in range(EPOCHS):
     running_corrects = 0
     running_loss = 0.0
-    for i in range(100):
-        #print(img.shape)
-        y = model(data_train[i])
-        l = loss(y, classes_train[i])
+    for img, ref in zip(images, classes):
+        y = model(img)
+        l = loss(y, ref)
         model.backpropagate(loss)
-        model.optimize()
+        model.optimize(LEARNING_RATE)
 
         pred = np.argmax(y)
-        ref = np.argmax(classes_train[i])
+        ref = np.argmax(ref)
         running_corrects += (pred == ref)
         running_loss += l
-    epoch_acc = running_corrects / len(data_train[0]) * 100
-    epoch_loss = running_loss / len(data_train[0])
-    print(e, epoch_acc, epoch_loss, sep="\t")
+    epoch_acc = running_corrects / len(images) * 100
+    epoch_loss = running_loss / len(images)
+    print(e + 1, epoch_acc, epoch_loss, sep="\t")
 
-
-preds = [0] * 6
-data = data_train[:1, :]
-for i in range(len(data)):
-    out = model(data[i])
-    preds[i] = np.argmax(out)
-    print(preds[i])
-
-print(classes_train[0])
-imshow(data, preds, 1)
+model.save_weights(WEIGHTS_PATH)
