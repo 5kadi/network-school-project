@@ -11,30 +11,31 @@ from config import EPOCHS
 model = Network(784, 100, 10)
 loss = CrossEntropyLoss()
 
-for e in range(5):
+for e in range(100):
     running_corrects = 0
     running_loss = 0.0
-    for img, ref in zip(data_train[:100], classes_train[:100]):
+    for i in range(100):
         #print(img.shape)
-        y = model(img)
-        l = loss(y, ref)
+        y = model(data_train[i])
+        l = loss(y, classes_train[i])
         model.backpropagate(loss)
         model.optimize()
 
         pred = np.argmax(y)
-        ref = np.argmax(ref)
+        ref = np.argmax(classes_train[i])
         running_corrects += (pred == ref)
-        print(l)
         running_loss += l
-    epoch_acc = running_corrects / len(data_train[:100]) * 100
-    epoch_loss = running_loss / len(data_train[:100])
+    epoch_acc = running_corrects / len(data_train[0]) * 100
+    epoch_loss = running_loss / len(data_train[0])
     print(e, epoch_acc, epoch_loss, sep="\t")
 
 
 preds = [0] * 6
-data = data_test[:6]
-for i in range(6):
-    out = model(data_test[i])
+data = data_train[:1, :]
+for i in range(len(data)):
+    out = model(data[i])
     preds[i] = np.argmax(out)
+    print(preds[i])
 
-imshow(data, preds)
+print(classes_train[0])
+imshow(data, preds, 1)

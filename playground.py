@@ -18,17 +18,17 @@ actual = np.array(
     ]
 )
 
+
 for e in range(100):
-    for d, r in zip(data, actual):
-        y = model(d)
-        l = loss(y, r)
+    for i in range(len(data)):
+        y = model(data[i])
+        l = loss(y, actual[i])
         model.backpropagate(loss)
         model.optimize()
         print(f"{e} {l}")
 
-
-test = model(data[0])
-print(np.argmax(test), data.shape)
+test = model(data[0] + 0.034)
+print(np.argmax(test))
 
 
 

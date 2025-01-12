@@ -37,6 +37,15 @@ a = np.array(
         [4, 2, 1, 3]
     ]
 )
+b = np.array(
+    [
+       [0, 1, 100, 1000],
+       [0, 0, 0, 1],
+       [0, 0, 0, 0],
+       [10, 10, 10, 10]
+    ]
+)
+#b = np.expand_dims(0)
 actual = np.array(
     [
         [0, 0, 1, 0],
@@ -45,6 +54,8 @@ actual = np.array(
         [0, 0, 0, 1]
     ]
 )
-loss = -1 * np.sum(actual * np.log(a))
-print(loss)
 
+a = a[:, :, np.newaxis] * a[:, np.newaxis, :]
+b = a.mean(0)
+
+print(b, sep="\n")
