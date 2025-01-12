@@ -4,7 +4,7 @@ from data.mnist import get_mnist
 from config import EPOCHS, LEARNING_RATE, EPSILON, WEIGHTS_PATH
 import numpy as np
 
-model.load_weights(WEIGHTS_PATH)
+#model.load_weights(WEIGHTS_PATH)
 loss = CrossEntropyLoss(EPSILON)
 
 images, classes = get_mnist()
