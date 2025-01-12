@@ -11,7 +11,7 @@ images, classes = get_mnist()
 preds = [0] * 6
 data = images[10000:10006]
 for i in range(6):
-    out = model(images[i])
+    out = model(data[i])
     preds[i] = np.argmax(out)
 
 imshow(data, preds)
