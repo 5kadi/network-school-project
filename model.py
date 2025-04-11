@@ -1,6 +1,6 @@
 from network.network import Network
 from network.layers import *
-from network.loss import CrossEntropyLoss
+from network.loss import *
 
 model = Network(
     [
